@@ -1,22 +1,9 @@
-import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ktlint)
 }
-
-ktlint { // Характеристика ключевых точек конфигурации, поэтому вам даже не нужно добавлять это
-    android = true
-    ignoreFailures = false // Нужно было отменить сборку вместо того, чтобы просто осуществлять вывод
-    reporters {
-        reporter(ReporterType.PLAIN)
-        reporter(ReporterType.HTML)
-        reporter(ReporterType.SARIF)
-    }
-}
-
 android {
     namespace = "com.example.testapp"
     compileSdk = 35
@@ -36,7 +23,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
