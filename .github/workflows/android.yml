@@ -20,6 +20,10 @@ jobs:
 
     - name: Change wrapper permissions
       run: chmod +x ./gradlew
+    - name: Init gradle wrapper
+      run: gradle wrapper
+    - name: Change wrapper permissions
+      run: chmod +x ./gradlew
     - name: Run gradle tests
       run: ./gradlew test
     - name: Build with Gradle
