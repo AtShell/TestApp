@@ -17,14 +17,15 @@ jobs:
       with:
         java-version: '17'
         distribution: 'adopt'
-
+    - name: Run Gradlew
+      run: gradle
     - name: Change wrapper permissions
-      run: chmod +x ./gradle
+      run: chmod +x ./gradlew
     - name: Init gradle wrapper
-      run: gradle wrapper
+      run: gradlew wrapper
     - name: Change wrapper permissions
-      run: chmod +x ./gradle
+      run: chmod +x ./gradlew
     - name: Run gradle tests
-      run: ./gradle test
+      run: ./gradlew test
     - name: Build with Gradle
-      run: ./gradle build
+      run: ./gradlew build
