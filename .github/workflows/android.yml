@@ -20,12 +20,12 @@ jobs:
     - name: Run Gradlew
       run: gradle
     - name: Change wrapper permissions
-      run: chmod +x ./gradlew
+      run: chmod +x gradlew
     - name: Init gradle wrapper
       run: gradlew wrapper
     - name: Change wrapper permissions
-      run: chmod +x ./gradlew
+      run: chmod +x gradlew
     - name: Run gradle tests
-      run: ./gradlew test
+      run: gradlew test
     - name: Build with Gradle
-      run: ./gradlew build
+      run: gradlew build
