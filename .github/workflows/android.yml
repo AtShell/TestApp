@@ -34,3 +34,39 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew build
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests
+        run: ./gradlew test
+  coverage:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Install bc
+        run: sudo apt-get install bc
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Give execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run tests with coverage
+        run: ./gradlew test --info
+
+      - name: Check code coverage
+        run: |
+          coverage=$(grep -o '[0-9]*\.[0-9]*' app/build/reports/coverage/report.txt | sort -nu | tail -n 1)
+          echo "Code coverage is: $coverage%"
+          if (( $(echo "$coverage < 50" | bc -l) )); then
+            echo "Code coverage is less than 50%, failing the build."
+            exit 1
+          fi
